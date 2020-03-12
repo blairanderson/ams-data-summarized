@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import useLocalStorage from "./use-local-storage";
 import Table from "./table";
+import Instructions from "./instructions";
 
 import "./styles.css";
 
@@ -24,17 +25,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Amazon Advertising Historical CSV</h1>
-      <h3>Paste your "XHR" response here to see some magic happen!</h3>
-      <details className="container">
-        <summary>instructions</summary>
-        <div className="row">
-          <p className="lead text-left col-6 mx-auto">
-            I look at this chart everyday and love that it exists. This script
-            will convert the underlying data into a CSV format.
-          </p>
-        </div>
-      </details>
+      
+      <Instructions />
       {err && updated && (
         <div>
           <br />
