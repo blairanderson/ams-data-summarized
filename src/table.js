@@ -16,7 +16,7 @@ function numberToDollar(decimals) {
   };
 }
 
-function Table({ dat, format }) {
+function Table({ timeSeries, format }) {
   const conversions = {
     sales: 100000.0,
     cpc: 100000.0,
@@ -36,14 +36,14 @@ function Table({ dat, format }) {
   const header_row = ["Month"];
   const rows = [];
 
-  dat.timeSeries.metrics.forEach(function(data) {
+  timeSeries.metrics.forEach(function(data) {
     header_row.push(data.name);
   });
 
-  dat.timeSeries.categories.forEach(function(month, index) {
+  timeSeries.categories.forEach(function(month, index) {
     const row = [];
     row.push(month);
-    dat.timeSeries.metrics.forEach(function(data) {
+    timeSeries.metrics.forEach(function(data) {
       const metricDat = data.dataSet[index];
       let elDat = false;
       if (conversions.hasOwnProperty(data.name)) {

@@ -7,7 +7,7 @@ import Instructions from "./instructions";
 import "./styles.css";
 
 function App() {
-  const [format, setFormat] = useLocalStorage("format-columns", false);
+  const [format, setFormat] = useLocalStorage("format-columns", "true");
   const [dat, setDat] = useLocalStorage("amsdat", {});
   const [err, setErr] = React.useState(false);
   const [updated, setUpdated] = useLocalStorage("amsdat-updated", undefined);
@@ -25,7 +25,6 @@ function App() {
 
   return (
     <div className="App">
-      
       <Instructions />
       {err && updated && (
         <div>
@@ -42,18 +41,36 @@ function App() {
         width={"100%"}
       />
 
-      <label>
-        <input
-          checked={format}
-          onChange={e => {
-            console.log(e.target.checked);
-            setFormat(e.target.checked);
-          }}
-          type="checkbox"
-        />{" "}
-        Format Table Data
-      </label>
-      {dat && dat.timeSeries && <Table format={format} dat={dat} />}
+      <div>
+        Format Table Data:
+        <label htmlFor="radioform2">
+          <input
+            id="radioform2"
+            name="radioform2"
+            checked={format === "true"}
+            onChange={e => {
+              setFormat("true");
+            }}
+            type="radio"
+          />
+          Yes
+        </label>
+        <label htmlFor="radioform1">
+          <input
+            name="radioform1"
+            id="radioform1"
+            checked={format === "false"}
+            onChange={e => {
+              setFormat("false");
+            }}
+            type="radio"
+          />
+          No
+        </label>
+      </div>
+      {dat && dat.timeSeries && (
+        <Table format={format} timeSeries={dat.timeSeries} />
+      )}
     </div>
   );
 }
