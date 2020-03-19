@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import useLocalStorage from "./use-local-storage";
-import Table from "./table";
+import TimeSeries from "./table";
 import Instructions from "./instructions";
 
 import "./styles.css";
@@ -42,7 +42,7 @@ function App() {
       />
 
       <div>
-        Format Table Data:
+        Format TimeSeries Data:
         <label htmlFor="radioform2">
           <input
             id="radioform2"
@@ -69,7 +69,7 @@ function App() {
         </label>
       </div>
       {dat && dat.timeSeries && (
-        <Table format={format} timeSeries={dat.timeSeries} />
+        <TimeSeries format={format === "true"} timeSeries={dat.timeSeries} />
       )}
     </div>
   );
