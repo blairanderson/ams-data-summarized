@@ -4,6 +4,7 @@ import useLocalStorage from "./use-local-storage";
 import TimeSeries from "./TimeSeries";
 import Summary from "./Summary";
 import Instructions from "./instructions";
+import { isEmpty } from "./utilities";
 
 import "./styles.css";
 
@@ -25,7 +26,7 @@ function App() {
 
   return (
     <div className="App">
-      <Instructions />
+      <Instructions detailsOpen={isEmpty(dat)} />
       {err && updated && (
         <div>
           <br />
@@ -44,19 +45,23 @@ function App() {
         </button>
       ) : (
         <textarea
+          style={{ width: "100%", textAlign: "center" }}
           onChange={e => {
             parseJSON(e.target.value);
           }}
+          placeholder="Paste the 'XHR' response here!"
           value={JSON.stringify(dat) !== "{}" ? JSON.stringify(dat) : ""}
           width={"100%"}
         />
       )}
       {dat && dat.summary && <Summary summary={dat.summary} />}
       {dat && dat.timeSeries && <TimeSeries timeSeries={dat.timeSeries} />}
-      <textarea
-        style={{ width: "100%", height: "100vh" }}
-        value={JSON.stringify(dat, null, 4)}
-      />
+      {false && (
+        <textarea
+          style={{ width: "100%", height: "100vh" }}
+          value={JSON.stringify(dat, null, 4)}
+        />
+      )}
     </div>
   );
 }

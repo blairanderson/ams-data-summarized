@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function() {
+export default function Instruction({ detailsOpen }) {
   return (
     <div>
       <h1 className="tc">Amazon Advertising Historical CSV</h1>
@@ -20,7 +20,7 @@ export default function() {
         The Advertising (AMS) dashboard has data that is not easily available
         from the API or reports exporter.
       </p>
-      <details className="container">
+      <details open={detailsOpen} className="container">
         <summary>instructions</summary>
         <ol>
           <li>
@@ -49,7 +49,6 @@ export default function() {
             happen!
           </li>
         </ol>
-
       </details>
     </div>
   );
