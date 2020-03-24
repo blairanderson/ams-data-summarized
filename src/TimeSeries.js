@@ -1,21 +1,6 @@
 import React from "react";
 import useLocalStorage from "./use-local-storage";
-
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function numberToPercent(decimals) {
-  return function(percent) {
-    return `${Number(percent).toFixed(decimals)}%`;
-  };
-}
-
-function numberToDollar(decimals) {
-  return function(dollHairs) {
-    return `$${Number(dollHairs).toFixed(decimals)}`;
-  };
-}
+import { numberWithCommas, numberToPercent, numberToDollar } from "./utilities";
 
 export default function TimeSeries({ timeSeries }) {
   const [rawformat, setFormat] = useLocalStorage("format-columns", "true");

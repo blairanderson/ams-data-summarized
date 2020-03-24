@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import useLocalStorage from "./use-local-storage";
 import TimeSeries from "./TimeSeries";
+import Summary from "./Summary";
 import Instructions from "./instructions";
 
 import "./styles.css";
@@ -50,7 +51,7 @@ function App() {
           width={"100%"}
         />
       )}
-
+      {dat && dat.summary && <Summary summary={dat.summary} />}
       {dat && dat.timeSeries && <TimeSeries timeSeries={dat.timeSeries} />}
       <textarea
         style={{ width: "100%", height: "100vh" }}
