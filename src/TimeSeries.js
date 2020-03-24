@@ -50,7 +50,7 @@ export default function TimeSeries({ timeSeries }) {
   });
 
   return (
-    <div>
+    <div className="container-fluid">
       <div>
         Show Raw Unformatted Data:
         <label htmlFor="radioform2">
