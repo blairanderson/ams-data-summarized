@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import useLocalStorage from "./use-local-storage";
-import TimeSeries from "./table";
+import TimeSeries from "./TimeSeries";
 import Instructions from "./instructions";
 
 import "./styles.css";
 
 function App() {
-  const [format, setFormat] = useLocalStorage("format-columns", "true");
   const [dat, setDat] = useLocalStorage("amsdat", {});
   const [err, setErr] = React.useState(false);
   const [updated, setUpdated] = useLocalStorage("amsdat-updated", undefined);
@@ -33,44 +32,30 @@ function App() {
           Last updated at {updated}
         </div>
       )}
-      <textarea
-        onChange={e => {
-          parseJSON(e.target.value);
-        }}
-        value={JSON.stringify(dat) !== "{}" ? JSON.stringify(dat) : ""}
-        width={"100%"}
-      />
 
-      <div>
-        Format TimeSeries Data:
-        <label htmlFor="radioform2">
-          <input
-            id="radioform2"
-            name="radioform2"
-            checked={format === "true"}
-            onChange={e => {
-              setFormat("true");
-            }}
-            type="radio"
-          />
-          Yes
-        </label>
-        <label htmlFor="radioform1">
-          <input
-            name="radioform1"
-            id="radioform1"
-            checked={format === "false"}
-            onChange={e => {
-              setFormat("false");
-            }}
-            type="radio"
-          />
-          No
-        </label>
-      </div>
-      {dat && dat.timeSeries && (
-        <TimeSeries format={format === "true"} timeSeries={dat.timeSeries} />
+      {dat && dat.timeSeries && dat.summary ? (
+        <button
+          onClick={e => {
+            setDat({});
+          }}
+        >
+          Clear Ad Data
+        </button>
+      ) : (
+        <textarea
+          onChange={e => {
+            parseJSON(e.target.value);
+          }}
+          value={JSON.stringify(dat) !== "{}" ? JSON.stringify(dat) : ""}
+          width={"100%"}
+        />
       )}
+
+      {dat && dat.timeSeries && <TimeSeries timeSeries={dat.timeSeries} />}
+      <textarea
+        style={{ width: "100%", height: "100vh" }}
+        value={JSON.stringify(dat, null, 4)}
+      />
     </div>
   );
 }
