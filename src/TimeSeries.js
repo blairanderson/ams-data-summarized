@@ -1,5 +1,6 @@
 import React from "react";
 import useLocalStorage from "./use-local-storage";
+import TableExport from "./TableExport";
 import { numberWithCommas, numberToPercent, numberToDollar } from "./utilities";
 
 export default function TimeSeries({ timeSeries }) {
@@ -22,7 +23,7 @@ export default function TimeSeries({ timeSeries }) {
   };
 
   const header_row = ["Month"];
-  const rows = [];
+  const rows_unsorted = [];
 
   timeSeries.metrics.forEach(function(data) {
     header_row.push(data.name);
@@ -46,7 +47,15 @@ export default function TimeSeries({ timeSeries }) {
         row.push(elDat);
       }
     });
-    rows.push(row);
+    rows_unsorted.push(row);
+  });
+  const rows = rows_unsorted.reverse();
+  const csvRows = rows.map(function(eachRow, index) {
+    const row = {};
+    header_row.forEach(function(element, index) {
+      row[element] = eachRow[index];
+    });
+    return row;
   });
 
   return (
@@ -78,6 +87,9 @@ export default function TimeSeries({ timeSeries }) {
           True
         </label>
       </div>
+      <div>
+        <TableExport data={csvRows} filename="campaigns-export.csv" />
+      </div>
       <table className="table table-bordered table-hover table-sm">
         <thead className="thead-dark">
           <tr>
@@ -87,7 +99,7 @@ export default function TimeSeries({ timeSeries }) {
           </tr>
         </thead>
         <tbody>
-          {rows.reverse().map(function(eachRow, index) {
+          {rows.map(function(eachRow, index) {
             return (
               <tr key={index + JSON.stringify(eachRow)}>
                 {eachRow.map(function(eachDat, index) {

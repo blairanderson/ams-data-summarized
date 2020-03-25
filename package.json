@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "jsonexport": "2.4.1",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-scripts": "3.0.1"
